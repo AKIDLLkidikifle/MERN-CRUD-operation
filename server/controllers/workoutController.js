@@ -15,9 +15,9 @@ const singleWorkout = async (req, res)=>{
     };
     const workout = await Workout.findById(id);
 
-    if(!workout){
-       return res.status(404).json({error: "there is no such file"});
-    }
+    // if(!workout){
+    //    return res.status(404).json({error: "there is no such file"});
+    // }
     res.status(200).json(workout);
 };
 
@@ -31,8 +31,33 @@ const createWorkout = async(req, res)=>{
     catch(err){
          res.status(400).json({errer: err.message});
     };
+}
 
+//delete workout
+const deleteWorkout = async(req, res)=>{
+      const {id} = req.params;
+      
+      if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: "there is no such file"});
+      };
+
+      const workout= await Workout.findOneAndDelete({_id:id});
+      res.status(200).json(workout);
+}
+
+//update workout
+const updateWorkout = async(req, res)=>{
+    const {id} = req.params;
+      
+    if(!mongoose.Types.ObjectId.isValid(id)){
+      return res.status(404).json({error: "there is no such file"});
+    };
+
+    const workout= await Workout.findOneAndUpdate({_id:id},{
+        ...req.body
+    })
+    res.status(200).json(workout);
 
 }
 
-module.exports = {getWorkout,singleWorkout, createWorkout}
+module.exports = {getWorkout,singleWorkout, createWorkout, updateWorkout, deleteWorkout}
