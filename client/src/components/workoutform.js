@@ -1,6 +1,8 @@
-// import { JSON } from "mysql/lib/protocol/constants/types";
 import {useState} from "react";
+import { useWorkoutsContext } from "../hooks/useWorkoutcontext"
+
 function Workoutform(){
+    const {dispatch} = useWorkoutsContext()
     const[title, settitle] = useState("");
     const[load, setload] = useState("");
     const[reps, setreps] = useState("");
@@ -30,6 +32,7 @@ function Workoutform(){
            setload("");
            setreps("");
            console.log("new workout is added", json);
+           dispatch({type: "CREATE_WORKOUT", payload: json});
        }
 
     }
