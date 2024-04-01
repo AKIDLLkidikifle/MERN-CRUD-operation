@@ -21,8 +21,9 @@ const {dispatch} = useWorkoutsContext();
             <p><strong>Load (kg): </strong>{props.element.reps}</p>
             <p><strong>Reps: </strong>{props.element.load}</p>
             <p>{props.element.createdAt}</p>
-            <button onClick={handleclick}>delete</button>
+            <span className="material-symbols-outlined" onClick={handleclick}>delete</span>
         </div>
+        
     )
 }
 
